@@ -19,7 +19,7 @@ namespace WPNest {
 			SetValue(SystemTray.IsVisibleProperty, true);
 			SetBinding(IsLoggedInProperty, new Binding("IsLoggedIn"));
 			SetBinding(IsLoggingInProperty, new Binding("IsLoggingIn"));
-			SetBinding(HvacModeProperty, new Binding("HvacMode") { Mode = BindingMode.TwoWay });
+			SetBinding(HvacModeProperty, new Binding("SelectedThermostat.HvacMode") { Mode = BindingMode.TwoWay });
 
 			ResetZoom.Completed += OnResetZoomCompleted;
 			Loaded += OnLoaded;
@@ -155,6 +155,11 @@ namespace WPNest {
 
 		private void SelectHvacControl(HvacMode hvacMode) {
 			hvacPicker.SelectedItem = hvacPicker.Items.Cast<HvacModeControl>().First(h => h.HvacMode == hvacMode);
+		}
+
+		private void OnSelectedThermostatChanged(object sender, SelectionChangedEventArgs args) {
+			if (args.AddedItems.Count > 0)
+				ViewModel.SelectedThermostat = (ThermostatViewModel)args.AddedItems[0];
 		}
 	}
 }

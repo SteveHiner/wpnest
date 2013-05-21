@@ -41,7 +41,8 @@ namespace WPNest {
 			ServiceContainer.RegisterService<IAnalyticsService>(_analyticsService);
 			ServiceContainer.RegisterService<ISettingsProvider>(new SettingsProvider());
 			ServiceContainer.RegisterService<ISessionProvider>(new SessionProvider());
-			ServiceContainer.RegisterService<INestWebService>(new NestWebService());
+//			ServiceContainer.RegisterService<INestWebService>(new NestWebService());
+			ServiceContainer.RegisterService<INestWebService>(new FakeNestWebService());
 			ServiceContainer.RegisterService<IStatusProvider>(new DelayedStatusProvider());
 			ServiceContainer.RegisterService<IStatusUpdaterService>(new StatusUpdaterService());
 			ServiceContainer.RegisterService<IDialogProvider>(new DialogProvider());

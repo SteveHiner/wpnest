@@ -45,8 +45,8 @@ namespace WPNest {
 			set {
 				_isAway = value;
 				OnPropertyChanged();
-				//				if (IsLoggedIn)
-				SetAwayModeAsync(_isAway);
+//				if (IsLoggedIn)
+					SetAwayModeAsync(_isAway);
 			}
 		}
 

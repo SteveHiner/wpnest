@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using WPNest.Services;
 
 namespace WPNest {
@@ -9,8 +10,8 @@ namespace WPNest {
 		public NestSampleViewModel() {
 			IsLoggedIn = true;
 
-			var firstThermostat = new ThermostatViewModel(new Thermostat(""));
-			var secondThermostat = new ThermostatViewModel(new Thermostat(""));
+			var firstThermostat = new ThermostatSampleViewModel(new Thermostat(""));
+			var secondThermostat = new ThermostatSampleViewModel(new Thermostat(""));
 
 			Thermostats.Add(firstThermostat);
 			Thermostats.Add(secondThermostat);
@@ -54,8 +55,8 @@ namespace WPNest {
 			}
 		}
 
-		private ThermostatViewModel _selectedThermostat;
-		public ThermostatViewModel SelectedThermostat {
+		private ThermostatSampleViewModel _selectedThermostat;
+		public ThermostatSampleViewModel SelectedThermostat {
 			get { return _selectedThermostat; }
 			set {
 				_selectedThermostat = value;
@@ -72,8 +73,8 @@ namespace WPNest {
 			}
 		}
 
-		private readonly ObservableCollection<ThermostatViewModel> _thermostats = new ObservableCollection<ThermostatViewModel>();
-		public ObservableCollection<ThermostatViewModel> Thermostats {
+		private readonly ObservableCollection<ThermostatSampleViewModel> _thermostats = new ObservableCollection<ThermostatSampleViewModel>();
+		public ObservableCollection<ThermostatSampleViewModel> Thermostats {
 			get { return _thermostats; }
 		}
 
@@ -82,6 +83,14 @@ namespace WPNest {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		public async Task InitializeAsync() {
+#if WP7
+			await TaskEx.Delay(0);
+#elif WP8
+			await Task.Delay(0);
+#endif
 		}
 	}
 }
